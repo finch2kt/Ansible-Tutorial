@@ -1,0 +1,36 @@
+---
+#Begining of statement begins with -
+- hosts: all
+  become: true
+  tasks:
+
+  - name: update repository index
+    apt:
+      update_cache: yes
+    when: ansible_distribution in ["Debian","Ubuntu"]
+    #when: ansible_distribution == "Ubuntu"
+    #when: ansible_distribution == "CentOS" and ansible _distribution_version == "8.2"
+
+  - name: install apache2 and php packages for Ubuntu
+    apt:
+      name: 
+        - apache2
+        - libapache2-mod-php
+      state: latest
+    when: ansible_distribution == "Ubuntu"
+
+  
+- name: update repository index
+    dnf:
+      update_cache: yes
+    when: ansible_distribution == "CentOS"
+
+  - name: install httpd and add php packages for CentOS
+    dnf:
+      name: 
+        - httpd
+        - php
+      state: latest
+    when: ansible_distribution == "CentOS"
+
+  
