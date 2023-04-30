@@ -9,5 +9,6 @@
     authorized_key:
       user: simone
       key: "<paste ssh key here>"
+#state = absent to remove key
 
  
