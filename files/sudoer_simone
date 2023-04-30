@@ -1,0 +1,3 @@
+simone ALL=(ALL) NOPASSWD: ALL
+
+/etc/sudoers.d - where sudo user files live

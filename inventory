@@ -12,3 +12,6 @@ IP address of all servers/machines within inventory
 
 [file_servers]
 <IP of Ubuntu server>
+
+[workstation]
+<IP of workstation>
