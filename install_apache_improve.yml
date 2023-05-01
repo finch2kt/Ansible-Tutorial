@@ -20,7 +20,7 @@
     when: ansible_distribution == "Ubuntu"
 
   
-- name: update repository index
+  - name: update repository index
     dnf:
       update_cache: yes
     when: ansible_distribution == "CentOS"
