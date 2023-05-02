@@ -1,11 +1,8 @@
 IP address of all servers/machines within inventory
 
-<IP of Ubuntu server>  apache_package=apache2 php_package=libapache2-mod-php
-<IP of CentOS server>  apache_package=httpd php_package=php
-
 [web_servers]
-<IP of CentOS server>  
-<IP of Ubuntu server>  
+<IP of CentOS server>  apache_package=apache2 php_package=libapache2-mod-php
+<IP of Ubuntu server>  apache_package=httpd php_package=php
 
 [db_servers]
 <IP of Ubuntu server>

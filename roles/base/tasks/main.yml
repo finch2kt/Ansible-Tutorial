@@ -3,3 +3,13 @@
     authorized_key:
       user: simone
       key: "<paste ssh key here>"
+
+- name: generagte sshd_config file from template
+  tags: sshd_config
+  template:
+    src: "{{ ssh_template_file }}"
+    dest: /etc/ssh/sshd_config
+    owner: root
+    group: root
+    mode: 0644
+  notify: restart_sshd

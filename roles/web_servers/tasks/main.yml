@@ -1,28 +1,17 @@
-- name: install apache2 and php packages for Ubuntu
-    tags: apache,apache2,ubuntu
-    apt:
+- name: install apache2 and php packages 
+    tags: apache,apache2,php
+    package:
       name: 
-        - apache2
-        - libapache2-mod-php
+        - "{{ apache_package_name }}"
+        - "{{ php_package_name }}"
       state: latest
-    when: ansible_distribution == "Ubuntu"
 
-  - name: install httpd and add php packages for CentOS
-    tags: apache,centos,httpd
-    dnf:
-      name: 
-        - httpd
-        - php
-      state: latest
-    when: ansible_distribution == "CentOS"
-
-  - name: start httpd (CentOS)
-    tags: apache,centos,httpd
+  - name: start and enable apache service
+    tags: apache,httpd
     service:
-      name: httpd
+      name: "{{ apache_service }}"
       state: started
       enabled: yes
-    when: ansible_distribution == "CentOS"
 
   - name: change email address for admin
     tags: apache,centos,httpd
@@ -31,7 +20,7 @@
       regexp: '^ServerAdmin'
       line: ServerAdmin somebody@somewhere.net
     when: ansible_distribution == "CentOS"
-    register: httpd
+    notify: restart_apache
     #capture state in a variable
 
  #/etc/httpd/conf/httpd.conf
@@ -39,12 +28,10 @@
  #line number of 89
  # ^ tells module that we want to edit a line that begins with the text that come after the ^, such ^ServerAdmin
 
-  - name: restart httpd (CentOS)
-    tags: apache,centos,httpd
-    service:
-      name: httpd
-      state: restarted
-    when: httpd.changed
+ #capture state in a variable
+ # register: apache
+ # when: apache.changed
+ # if mutiple tasks change the variable = bad = lightswitch
 
   - name: copy default html file for site
     tags: apache,apache2,httpd
